@@ -91,9 +91,14 @@ const renderArray = (arrayIndex, redHightlights = [], greenHightlights = []) => 
             barHeight);
     }
 };
+
+const renderArrays = () => {
+    for (let i = 0; i < numberOfArrays; i++) {
+        renderArray(i);
+    }
+};
 // Initially render the arrays
-renderArray(0);
-renderArray(1);
+renderArrays();
 
 const swapElements = (arrayIndex, i, j) => {
     const array = arrays[arrayIndex];
