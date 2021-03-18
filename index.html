@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sortieralgorithmen-Visualisierung</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="main.js" defer></script>
+    </head>
+    <body id="body">
+        <canvas id="canvas"></canvas>
+        <aside id="aside">
+            <div class="aside-item">
+                <h1 class="aside-item-title">Allgemein</h1>
+                <div class="option-container">
+                    <label for="optionArraySize">
+                        Arraylänge:
+                        <span id="optionArraySizeValue">50</span>
+                    </label>
+                    <span class="right"></span>
+                    <input id="optionArraySize" type="range" min="5" max="100" value="50"
+                        oninput="updateInputValueDisplay('optionArraySize', getArraySize()); stop()"
+                        onchange="generateArrays(); renderArrays()">
+                </div>
+                <div class="option-container">
+                    <span class="right"></span>
+                    <input type="button" value="Mischen" onclick="shuffleArrays()">
+                </div>
+                <div class="option-container">
+                    <label for="optionDelay">
+                        Verzögerung:
+                        <span id="optionDelayValue">1</span>
+                        <span>ms</span>
+                    </label>
+                    <span class="right"></span>
+                    <input id="optionDelay" type="range" min="1" max="100" value="11"
+                        oninput="updateInputValueDisplay('optionDelay', Math.round(10 * getDelay()) / 10)">
+                </div>
+                <div class="option-container">
+                    <span class="right"></span>
+                    <input type="button" value="Start" onclick="start()">
+                    <input type="button" value="Pause/Weiter" onclick="pauseResume()">
+                    <input type="button" value="Schritt" onclick="stepForward()">
+                    <input type="button" value="Stop" onclick="stop()">
+                </div>
+            </div>
+            <div class="aside-item">
+                <h1 class="aside-item-title">Oben</h1>
+                <div class="option-container">
+                    <label for="optionAlgorithm">Algorithmus:</label>
+                    <span class="right"></span>
+                    <select id="optionAlgorithm">
+                        <option value="bubbleSort">Bubble-Sort</option>
+                        <option value="selectionSort">Selection-Sort</option>
+                        <option value="insertionSort">Insertion-Sort</option>
+                        <option value="quickSort">Quick-Sort</option>
+                    </select>
+                </div>
+                <div class="option-container">
+                    <label>
+                        Vergleiche:
+                    </label>
+                    <span class="right"></span>
+                    <span id="comparisonCount1Value">0</span>
+                </div>
+                <div class="option-container">
+                    <label>
+                        Tausche:
+                    </label>
+                    <span class="right"></span>
+                    <span id="swapCount1Value">0</span>
+                </div>
+            </div>
+            <div class="aside-item">
+                <h1 class="aside-item-title">Unten</h1>
+                <div class="option-container">
+                    <label for="optionCompareAlgorithm">Algorithmus:</label>
+                    <span class="right"></span>
+                    <select id="optionCompareAlgorithm"
+                        onchange="renderArrays()">
+                        <option value="none">Keiner</option>
+                        <option value="bubbleSort">Bubble-Sort</option>
+                        <option value="selectionSort">Selection-Sort</option>
+                        <option value="insertionSort">Insertion-Sort</option>
+                        <option value="quickSort">Quick-Sort</option>
+                    </select>
+                </div>
+                <div class="option-container">
+                    <label>
+                        Vergleiche:
+                    </label>
+                    <span class="right"></span>
+                    <span id="comparisonCount2Value">0</span>
+                </div>
+                <div class="option-container">
+                    <label>
+                        Tausche:
+                    </label>
+                    <span class="right"></span>
+                    <span id="swapCount2Value">0</span>
+                </div>
+            </div>
+        </aside>
+    </body>
+</html>

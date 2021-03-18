@@ -1,0 +1,85 @@
+:root {
+    --options-width: 350px;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+#canvas {
+    width: calc(100% - var(--options-width) - 16px);
+    height: calc(100% - 4px - 16px);
+    border: 2px solid white;
+}
+
+/* input[type="button"], select {
+    border: 0;
+    margin-left: 2px;
+}
+
+input[type="button"] {
+    padding: 2px 8px;
+}
+
+input[type="range"] {
+    width: 150px;
+} */
+
+aside {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: var(--options-width);
+    height: calc(100% - 16px - 4px);
+    margin-left: 8px;
+}
+
+.aside-item {
+    display: flex;
+    flex-direction: column;
+
+    padding: 8px;
+    border: 2px solid white;
+}
+
+.aside-item:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.aside-item-title {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-top: 0;
+}
+
+.option-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+
+    margin-bottom: 8px;
+}
+
+.option-container label {
+    font-weight: bold;
+}
+
+.option-container span {
+    font-weight: normal;
+}
+
+.option-container span.right {
+    margin-left: auto;
+}
