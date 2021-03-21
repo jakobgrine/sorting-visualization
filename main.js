@@ -16,11 +16,7 @@ const getDelay = () => logSlider(optionDelay.value, 1, 100, 1, 1001) - 1;
 const optionArraySize = document.getElementById("optionArraySize");
 const getArraySize = () => optionArraySize.value;
 
-const optionAlgorithm = document.getElementById("optionAlgorithm");
-const getAlgorithm = () => optionAlgorithm.value;
-
-const optionCompareAlgorithm = document.getElementById("optionCompareAlgorithm");
-const getCompareAlgorithm = () => optionCompareAlgorithm.value;
+const getAlgorithm = (index) => document.getElementById(`optionAlgorithm${index}`).value;
 
 const getInputValue = (elementId) =>
     document.getElementById(elementId).value;
@@ -53,7 +49,7 @@ generateArrays();
 const renderArray = (index, redHightlights = [], greenHightlights = []) => {
     const array = arrays[index];
 
-    const numberOfCompares = getCompareAlgorithm() !== "none" ? 2 : 1;
+    const numberOfCompares = getAlgorithm(1) !== "none" ? 2 : 1;
     // Return if this array is not supposed to be drawn
     if (index >= numberOfCompares) {
         return;
@@ -245,11 +241,11 @@ const algorithms = {
 
 const runAlgorithms = async () => {
     (async () => {
-        await algorithms[getAlgorithm()](0)
+        await algorithms[getAlgorithm(0)](0)
         renderArray(0);
     })();
     (async () => {
-        await algorithms[getCompareAlgorithm()](1)
+        await algorithms[getAlgorithm(1)](1)
         renderArray(1);
     })();
 };
