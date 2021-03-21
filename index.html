@@ -48,7 +48,8 @@
                 <div class="option-container">
                     <label for="optionAlgorithm0">Algorithmus:</label>
                     <span class="right"></span>
-                    <select id="optionAlgorithm0">
+                    <select id="optionAlgorithm0"
+                        onchange="updateComplexityDisplay(0)">
                         <option value="bubbleSort">Bubblesort</option>
                         <option value="selectionSort">Selectionsort</option>
                         <option value="insertionSort">Insertionsort</option>
@@ -65,6 +66,12 @@
                     <span class="right"></span>
                     <span id="swapCount1Value">0</span>
                 </div>
+                <div style="height: 25px"></div>
+                <div class="option-container">
+                    <label>Komplexität (&empty;):</label>
+                    <span class="right"></span>
+                    <img id="complexity0" src="images/o_n2.svg">
+                </div>
             </div>
             <div class="aside-item">
                 <h1 class="aside-item-title">Unten</h1>
@@ -72,7 +79,7 @@
                     <label for="optionAlgorithm1">Algorithmus:</label>
                     <span class="right"></span>
                     <select id="optionAlgorithm1"
-                        onchange="renderArrays()">
+                        onchange="renderArrays(); updateComplexityDisplay(1)">
                         <option value="none">Keiner</option>
                         <option value="bubbleSort">Bubblesort</option>
                         <option value="selectionSort">Selectionsort</option>
@@ -89,6 +96,12 @@
                     <label>Tausche:</label>
                     <span class="right"></span>
                     <span id="swapCount2Value">0</span>
+                </div>
+                <div style="height: 25px"></div>
+                <div class="option-container">
+                    <label>Komplexität (&empty;):</label>
+                    <span class="right"></span>
+                    <img id="complexity1" src="emptyImagelolol">
                 </div>
             </div>
             <img style="margin: auto 0 -7px 0" src="images/graph.png" title="Komplexität">

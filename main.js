@@ -288,3 +288,19 @@ const stepForward = async () => {
         runAlgorithms();
     }
 };
+
+const complexities = {
+    bubbleSort: "n2",
+    selectionSort: "n2",
+    insertionSort: "n2",
+    quickSort: "nlogn",
+};
+const updateComplexityDisplay = (index) => {
+    const complexity = complexities[getAlgorithm(index)];
+    const element = document.getElementById(`complexity${index}`);
+    element.src = `images/o_${complexity}.svg`;
+};
+// Initially display the correct complexities
+for (let i = 0; i < numberOfArrays; i++) {
+    updateComplexityDisplay(i);
+}
