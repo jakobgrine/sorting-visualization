@@ -19,18 +19,19 @@ body {
     border: 2px solid white;
 }
 
-/* input[type="button"], select {
+input[type="button"], select {
     border: 0;
-    margin-left: 2px;
+    color: white;
+    background: #444;
 }
 
-input[type="button"] {
-    padding: 2px 8px;
+:is(input[type="button"], select):hover {
+    background: #555;
 }
 
 input[type="range"] {
     width: 150px;
-} */
+}
 
 aside {
     position: absolute;
@@ -70,6 +71,10 @@ aside {
     align-items: center;
 
     margin-bottom: 8px;
+}
+
+.option-container > *:not(:first-child) {
+    margin-left: 4px;
 }
 
 .option-container label {
