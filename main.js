@@ -50,12 +50,12 @@ const generateArrays = () => {
 // Initially generate the arrays
 generateArrays();
 
-const renderArray = (arrayIndex, redHightlights = [], greenHightlights = []) => {
-    const array = arrays[arrayIndex];
+const renderArray = (index, redHightlights = [], greenHightlights = []) => {
+    const array = arrays[index];
 
     const numberOfCompares = getCompareAlgorithm() !== "none" ? 2 : 1;
     // Return if this array is not supposed to be drawn
-    if (arrayIndex >= numberOfCompares) {
+    if (index >= numberOfCompares) {
         return;
     }
 
@@ -71,9 +71,9 @@ const renderArray = (arrayIndex, redHightlights = [], greenHightlights = []) => 
     // Clear the previous render of this array
     context.clearRect(
         0,
-        canvasHeight / numberOfCompares * arrayIndex,
+        canvasHeight / numberOfCompares * index,
         canvasWidth,
-        canvasHeight / numberOfCompares * (arrayIndex + 1));
+        canvasHeight / numberOfCompares * (index + 1));
 
     // Render this array
     for (let i = 0; i < array.length; i++) {
@@ -86,7 +86,7 @@ const renderArray = (arrayIndex, redHightlights = [], greenHightlights = []) => 
             : "white";
         context.fillRect(
             canvasPadding + i * (barWidth + barMargin),
-            canvasPadding + (barHeightMax - barHeight) + arrayIndex * (barHeightMax + canvasPadding),
+            canvasPadding + (barHeightMax - barHeight) + index * (barHeightMax + canvasPadding),
             barWidth,
             barHeight);
     }
@@ -100,12 +100,12 @@ const renderArrays = () => {
 // Initially render the arrays
 renderArrays();
 
-const swapElements = (arrayIndex, i, j) => {
-    const array = arrays[arrayIndex];
+const swapElements = (index, i, j) => {
+    const array = arrays[index];
     [array[i], array[j]] = [array[j], array[i]];
 
-    swapCounts[arrayIndex]++;
-    updateInputValueDisplay(`swapCount${arrayIndex + 1}`, swapCounts[arrayIndex]);
+    swapCounts[index]++;
+    updateInputValueDisplay(`swapCount${index + 1}`, swapCounts[index]);
 };
 
 const shuffleArrays = () => {
@@ -127,12 +127,12 @@ const shuffleArrays = () => {
 let stopped, paused;
 let resolveWaits = Array(numberOfArrays, []);
 // Returns when the algorithm should continue or terminate.
-const waitForContinue = (arrayIndex) => new Promise((resolve, reject) => {
+const waitForContinue = (index) => new Promise((resolve, reject) => {
     // Returns false if the algorithm should stop executing
     if (stopped) {
         resolve(false);
     }
-    resolveWaits[arrayIndex] = resolve;
+    resolveWaits[index] = resolve;
     if (!paused) {
         if (getDelay() > 0) {
             // Continue executing the algorithm after the user-specified delay
@@ -148,12 +148,12 @@ const waitForContinue = (arrayIndex) => new Promise((resolve, reject) => {
 // - returns  1 if a[i] > a[j]
 // - returns -1 if a[i] <= a[j]
 // - returns  0 if the algorithm should terminate
-const compareElements = async (arrayIndex, i, j) => {
-    comparisonCounts[arrayIndex]++;
-    updateInputValueDisplay(`comparisonCount${arrayIndex + 1}`, comparisonCounts[arrayIndex]);
+const compareElements = async (index, i, j) => {
+    comparisonCounts[index]++;
+    updateInputValueDisplay(`comparisonCount${index + 1}`, comparisonCounts[index]);
 
-    const array = arrays[arrayIndex];
-    const result = await waitForContinue(arrayIndex);
+    const array = arrays[index];
+    const result = await waitForContinue(index);
     return !result
         ? 0
         : (array[i] > array[j])
@@ -162,16 +162,16 @@ const compareElements = async (arrayIndex, i, j) => {
 };
 
 const algorithms = {
-    bubbleSort: async (arrayIndex) => {
-        const array = arrays[arrayIndex];
+    bubbleSort: async (index) => {
+        const array = arrays[index];
         let n = array.length;
         while (n > 1) {
             let newn = 0;
             for (let i = 1; i <= n - 1; i++) {
-                renderArray(arrayIndex, [i - 1, i]);
-                let res = await compareElements(arrayIndex, i - 1, i);
+                renderArray(index, [i - 1, i]);
+                let res = await compareElements(index, i - 1, i);
                 if (res > 0) {
-                    swapElements(arrayIndex, i - 1, i);
+                    swapElements(index, i - 1, i);
                     newn = i;
                 } else if (res == 0) {
                     return;
@@ -180,13 +180,13 @@ const algorithms = {
             n = newn;
         }
     },
-    selectionSort: async (arrayIndex) => {
-        const array = arrays[arrayIndex];
+    selectionSort: async (index) => {
+        const array = arrays[index];
         for (let i = 0; i < array.length - 1; i++) {
             let jmin = i;
             for (let j = i + 1; j < array.length; j++) {
-                renderArray(arrayIndex, [j, i]);
-                let res = await compareElements(arrayIndex, jmin, j);
+                renderArray(index, [j, i]);
+                let res = await compareElements(index, jmin, j);
                 if (res > 0) {
                     jmin = j;
                 } else if (res == 0) {
@@ -194,26 +194,26 @@ const algorithms = {
                 }
             }
             if (jmin != i) {
-                swapElements(arrayIndex, jmin, i);
+                swapElements(index, jmin, i);
             }
         }
     },
-    insertionSort: async (arrayIndex) => {
-        const array = arrays[arrayIndex];
+    insertionSort: async (index) => {
+        const array = arrays[index];
         for (let i = 1; i < array.length; i++) {
             for (let j = i; j > 0; j--) {
-                renderArray(arrayIndex, [j - 1, j]);
-                let res = await compareElements(arrayIndex, j - 1, j);
+                renderArray(index, [j - 1, j]);
+                let res = await compareElements(index, j - 1, j);
                 if (res > 0) {
-                    swapElements(arrayIndex, j - 1, j);
+                    swapElements(index, j - 1, j);
                 } else if (res == 0) {
                     return;
                 }
             }
         }
     },
-    quickSort: async (arrayIndex, left, right) => {
-        const array = arrays[arrayIndex];
+    quickSort: async (index, left, right) => {
+        const array = arrays[index];
         if (typeof left === "undefined") {
             left = 0;
         }
@@ -224,21 +224,21 @@ const algorithms = {
         if (left < right) {
             let i = left;
             for (let j = left; j < right; j++) {
-                renderArray(arrayIndex, [j, right], [left, right]);
-                let res = await compareElements(arrayIndex, j, right);
+                renderArray(index, [j, right], [left, right]);
+                let res = await compareElements(index, j, right);
                 if (res < 0) {
-                    swapElements(arrayIndex, i, j);
+                    swapElements(index, i, j);
                     i++;
                 } else if (res == 0) {
-                    renderArray(arrayIndex);
+                    renderArray(index);
                     return;
                 }
             }
-            swapElements(arrayIndex, i, right);
+            swapElements(index, i, right);
             pivot = i;
 
-            await algorithms.quickSort(arrayIndex, left, pivot - 1);
-            await algorithms.quickSort(arrayIndex, pivot + 1, right);
+            await algorithms.quickSort(index, left, pivot - 1);
+            await algorithms.quickSort(index, pivot + 1, right);
         }
     },
 };
