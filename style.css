@@ -44,6 +44,8 @@ aside {
     width: var(--aside-width);
     height: calc(100% - 16px - 4px);
     margin-left: 8px;
+
+    overflow-y: auto;
 }
 
 .aside-item {
