@@ -1,5 +1,5 @@
 :root {
-    --options-width: 350px;
+    --aside-width: 350px;
 }
 
 html, body {
@@ -14,7 +14,7 @@ body {
 }
 
 #canvas {
-    width: calc(100% - var(--options-width) - 16px);
+    width: calc(100% - var(--aside-width) - 16px);
     height: calc(100% - 4px - 16px);
     border: 2px solid white;
 }
@@ -25,7 +25,7 @@ input[type="button"], select {
     background: #444;
 }
 
-:is(input[type="button"], select):hover {
+input[type="button"]:hover, select:hover {
     background: #555;
 }
 
@@ -41,7 +41,7 @@ aside {
     display: flex;
     flex-direction: column;
 
-    width: var(--options-width);
+    width: var(--aside-width);
     height: calc(100% - 16px - 4px);
     margin-left: 8px;
 }
@@ -58,7 +58,7 @@ aside {
     margin-bottom: 8px;
 }
 
-.aside-item-title {
+.aside-item > h1 {
     font-size: 1.2rem;
     font-style: italic;
     margin-top: 0;
@@ -81,10 +81,10 @@ aside {
     font-weight: bold;
 }
 
-.option-container span {
+.option-container label > span {
     font-weight: normal;
 }
 
-.option-container span.right {
+.option-container > .right {
     margin-left: auto;
 }
