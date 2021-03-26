@@ -290,15 +290,16 @@ const stepForward = async () => {
 };
 
 const complexities = {
-    bubbleSort: "n2",
-    selectionSort: "n2",
-    insertionSort: "n2",
-    quickSort: "nlogn",
+    bubbleSort: ["n", "n2", "n2"],
+    selectionSort: ["n2", "n2", "n2"],
+    insertionSort: ["n", "n2", "n2"],
+    quickSort: ["nlogn", "n2", "nlogn"],
 };
 const updateComplexityDisplay = (index) => {
-    const complexity = complexities[getAlgorithm(index)];
-    const element = document.getElementById(`complexity${index}`);
-    element.src = `images/o_${complexity}.svg`;
+    const complexity = complexities[getAlgorithm(index)] || [];
+    document.getElementById(`complexity${index}Best`).src = `images/o_${complexity[0]}.svg`;
+    document.getElementById(`complexity${index}Worst`).src = `images/o_${complexity[1]}.svg`;
+    document.getElementById(`complexity${index}Average`).src = `images/o_${complexity[2]}.svg`;
 };
 // Initially display the correct complexities
 for (let i = 0; i < numberOfArrays; i++) {
